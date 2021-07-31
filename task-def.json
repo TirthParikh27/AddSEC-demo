@@ -30,7 +30,7 @@
     "requiresCompatibilities": [
         "FARGATE"
     ], 
-    "executionRoleArn": "arn:aws:iam::221094580673:role/AWSServiceRoleForECS"
+    "executionRoleArn": "arn:aws:iam::221094580673:role/AWSServiceRoleForECS",
     "cpu": "256", 
     "memory": "512"
 }
