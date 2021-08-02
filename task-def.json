@@ -40,15 +40,7 @@
             "interactive": true,
             "pseudoTerminal": true,
             
-            "healthCheck": {
-                "command": [
-                    ""
-                ],
-                "interval": 0,
-                "timeout": 0,
-                "retries": 0,
-                "startPeriod": 0
-            }
+           
             
            
             
