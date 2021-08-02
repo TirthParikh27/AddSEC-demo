@@ -21,7 +21,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
-          path: bandit_report.out
+          path: ${{ RUNNER.temp }}/_github_home/bandit_report.out
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
