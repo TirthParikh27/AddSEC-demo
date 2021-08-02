@@ -38,7 +38,7 @@
             
            
             "interactive": true,
-            "pseudoTerminal": true,
+            "pseudoTerminal": true
             
            
             
@@ -46,7 +46,7 @@
             
         }
     ],
-    
+   
     "requiresAttributes": [
       {
         
