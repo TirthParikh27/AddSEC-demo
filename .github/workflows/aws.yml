@@ -27,10 +27,7 @@ jobs:
         uses: aws-actions/codeguru-reviewer@v1.1
         with:
           s3_bucket: codeguru-reviewer-addsec
-      - name: Upload review result
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: codeguru-results.sarif.json
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -78,3 +75,21 @@ jobs:
           service: flask-app
           cluster: flask-app
           wait-for-service-stability: false
+  CodeduruJob:
+    name: upload codeguru
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Upload review result
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: codeguru-results.sarif.json
+  SnykJob:
+    name: upload snyk
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Upload review result
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk.sarif
