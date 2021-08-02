@@ -22,21 +22,7 @@
                     "protocol": "tcp"
                 }
             ],
-            "essential": true,
-           
-           
-           
-            
-           
-            
-            "startTimeout": 0,
-            "stopTimeout": 0,
-            "hostname": "",
-            "user": "",
-            "workingDirectory": "",
-            
-            
-           
+            "essential": true,          
             "interactive": true,
             "pseudoTerminal": true
             
