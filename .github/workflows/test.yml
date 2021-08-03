@@ -60,6 +60,6 @@ jobs:
       - name: Upload to slack step
         uses: adrey/slack-file-upload-action@master
         with:
-          token: xoxb-2113526336947-2221428155491-0kWEVhsLDHd1LOxkAwAMWXkN
+          token: ${{ secrets.SLACK_TOKEN }}
           path: test.txt
           channel: aws-chat-test
