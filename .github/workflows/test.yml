@@ -64,7 +64,7 @@ jobs:
           IMAGE_TAG: latest
         run: |
           echo ${{ steps.build.outputs.image }}
-          docker tag ${{ steps.build.outputs }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag ${{ steps.build.outputs.image }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           
