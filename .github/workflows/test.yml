@@ -26,6 +26,8 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        
+      - run: curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
 
 #       - name: Build, tag, and push image to Amazon ECR
 #         id: build-image
@@ -56,10 +58,5 @@ jobs:
 #           service: flask-app
 #           cluster: flask-app
 #           wait-for-service-stability: false
-      - run: echo "Test file " > test.txt
-      - name: Upload to slack step
-        uses: adrey/slack-file-upload-action@master
-        with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          path: test.txt
-          channel: aws-chat-test
+       
+     
