@@ -52,6 +52,7 @@ jobs:
         id: build
         run: |
           docker load < $(nix-build devenv-docker.nix)
+          echo result
           
           
           
