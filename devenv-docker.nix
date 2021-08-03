@@ -19,7 +19,7 @@ in pkgs.dockerTools.buildImage {
         pythonPackages
         pkgs.git
         pkgs.vim
-        *
+        ./nixdemo
     ];
 #     runAsRoot = ''
 #         sudo apt-get update
