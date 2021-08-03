@@ -56,7 +56,6 @@ jobs:
           ECR_REPOSITORY: my-ecr-repo
           IMAGE_TAG: latest
         run: |
-          cp -r . AddSEC-demo/
           docker load < $(nix-build devenv-docker.nix)
           docker tag devenv $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
