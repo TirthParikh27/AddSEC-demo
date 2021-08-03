@@ -56,10 +56,3 @@ jobs:
 #           service: flask-app
 #           cluster: flask-app
 #           wait-for-service-stability: false
-      - run: echo "Test file " > test.txt
-      - name: Upload to slack step
-        uses: adrey/slack-file-upload-action@master
-        with:
-          token: xoxb-2113526336947-2221428155491-0kWEVhsLDHd1LOxkAwAMWXkN
-          path: test.txt
-          channel: random
