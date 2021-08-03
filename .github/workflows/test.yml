@@ -51,8 +51,8 @@ jobs:
       - name: Nix Build, tag, and push image to Amazon ECR
         id: build
         run: |
-          docker load < $(nix-build devenv-docker.nix)
-          echo result
+          nix-build devenv-docker.nix
+          docker load < result | egrep -o "docker.*" | { read message; echo "::set-output name=image::$message"; }
           
           
           
@@ -63,7 +63,7 @@ jobs:
           ECR_REPOSITORY: my-ecr-repo
           IMAGE_TAG: latest
         run: |
-          echo ${{ steps.build.outputs }}
+          echo ${{ steps.build.outputs.image }}
           docker tag ${{ steps.build.outputs }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
