@@ -19,7 +19,7 @@ in pkgs.dockerTools.buildImage {
         pythonPackages
         pkgs.git
         pkgs.vim
-        ./test-app/AddSEC-demo
+        *
     ];
 #     runAsRoot = ''
 #         sudo apt-get update
