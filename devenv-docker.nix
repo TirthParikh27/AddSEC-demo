@@ -19,7 +19,7 @@ in pkgs.dockerTools.buildImage {
         pythonPackages
         pkgs.git
         pkgs.vim
-        ./
+        /
     ];
 #     runAsRoot = ''
 #         sudo apt-get update
