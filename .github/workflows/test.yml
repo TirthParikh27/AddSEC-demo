@@ -48,16 +48,22 @@ jobs:
         uses: cachix/install-nix-action@v13
         with:
           nix_path: nixpkgs=channel:nixos-unstable
-        
       - name: Nix Build, tag, and push image to Amazon ECR
+        id: build
+        run: |
+          docker load < $(nix-build devenv-docker.nix)
+          
+          
+          
+      - name: Tag and push image to Amazon ECR
         id: nix-build
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: my-ecr-repo
           IMAGE_TAG: latest
         run: |
-          docker load < $(nix-build devenv-docker.nix)
-          docker tag docker-devenv $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo ${{ steps.build.outputs }}
+          docker tag ${{ steps.build.outputs }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           
