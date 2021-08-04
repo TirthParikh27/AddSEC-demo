@@ -73,7 +73,7 @@ jobs:
       - name: Push image to Amazon ECR
         id: nix-build
         run: |
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push ${{ steps.build-image.outputs.image }}
           
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
