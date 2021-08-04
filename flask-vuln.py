@@ -104,18 +104,6 @@ def myson():
   return '{"name": "' + jsonni + '"}'
 
 
-@app.route("/xss1")
-def xss1():
-  f = '<html><body>Mighty ' + request.args.get('name') + ', compose your email now:'
-  g = """
-           <form>To: <input type='text'></input><br>
-           Subject: <input type='text'></input><br>
-           Content: <textarea></textarea><br>
-           <input type="button" value="Send!"/>
-           </form></body></html>
-         """
-  return f + g
-
 @app.route("/xss2")
 def xss2():
   return template('xss2.html')
