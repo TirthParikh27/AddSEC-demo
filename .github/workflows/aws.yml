@@ -34,15 +34,27 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
 
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Nix Install 
+        id: nix-install
+        uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      
+      - name: Nix Build image 
+        id: build
+        run: |
+          nix-build devenv-docker.nix
+          docker load < result | egrep -o "docker.*" | { read message; echo "::set-output name=image::$message"; }
+      
+      - name: Tag image
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: my-ecr-repo
           IMAGE_TAG: latest
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo ${{ steps.build.outputs.image }}
+          docker tag ${{ steps.build.outputs.image }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Run Snyk to check Docker image for vulnerabilities
@@ -57,6 +69,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
+      
+      - name: Push image to Amazon ECR
+        id: nix-build
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
